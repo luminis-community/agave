@@ -181,6 +181,19 @@ pull_request_rules:
           into master and ride the normal stabilization schedule. Exceptions
           include CI/metrics changes, CLI improvements and documentation
           updates on a case by case basis.
+  - name: v0.2 feature-gate backport
+    conditions:
+      - label=v0.2
+      - label=feature-gate
+    actions:
+      backport:
+        assignees: *BackportAssignee
+        title: "{{ destination_branch }}: {{ title }} (backport of #{{ number }})"
+        ignore_conflicts: true
+        labels:
+          - feature-gate
+        branches:
+          - v0.2
   - name: v0.2 non-feature-gate backport
     conditions:
       - label=v0.2
